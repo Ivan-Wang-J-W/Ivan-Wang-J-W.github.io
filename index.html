@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AZoom Car Rental - Book Your Ride Today</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>🚗 AZoom Car Rental</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#cars">Our Cars</a></li>
+                <li><a href="#reservation">Reserve</a></li>
+                <li><a href="#employee">Employee Portal</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h2>Welcome to AZoom Car Rental</h2>
+            <p>Your trusted partner for quality car rentals. Book online, pick up at our office, and hit the road!</p>
+            <a href="#reservation" class="btn btn-primary">Book Now</a>
+        </div>
+    </section>
+
+    <!-- Available Cars Section -->
+    <section id="cars" class="cars-section">
+        <div class="container">
+            <h2>Our Fleet</h2>
+            <div id="carsList" class="cars-grid"></div>
+        </div>
+    </section>
+
+    <!-- Customer Reservation Section -->
+    <section id="reservation" class="reservation-section">
+        <div class="container">
+            <h2>Make a Reservation</h2>
+            <form id="reservationForm" class="form-card">
+                <div class="form-group">
+                    <label for="customerName">Full Name *</label>
+                    <input type="text" id="customerName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customerEmail">Email *</label>
+                    <input type="email" id="customerEmail" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customerPhone">Phone *</label>
+                    <input type="tel" id="customerPhone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="licenseNumber">Driver's License Number *</label>
+                    <input type="text" id="licenseNumber" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="carSelect">Select Car *</label>
+                        <select id="carSelect" required></select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="rentalDays">Rental Days *</label>
+                        <input type="number" id="rentalDays" min="1" value="1" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pickupDate">Pickup Date *</label>
+                        <input type="date" id="pickupDate" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="returnDate">Expected Return Date *</label>
+                        <input type="date" id="returnDate" required>
+                    </div>
+                </div>
+                
+                <h3>Payment Information</h3>
+                <div class="form-group">
+                    <label for="cardNumber">Card Number *</label>
+                    <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cardExpiry">Expiry Date *</label>
+                        <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cardCVV">CVV *</label>
+                        <input type="text" id="cardCVV" placeholder="123" maxlength="3" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cardName">Cardholder Name *</label>
+                    <input type="text" id="cardName" required>
+                </div>
+                
+                <div class="rental-summary" id="rentalSummary"></div>
+                
+                <button type="submit" class="btn btn-primary btn-block">Reserve Car</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Office Rental Processing Section -->
+    <section id="office" class="office-section" style="display: none;">
+        <div class="container">
+            <h2>Office - Process Rental Pickup</h2>
+            <div class="form-card">
+                <div class="form-group">
+                    <label for="searchReservation">Search Reservation by Email</label>
+                    <input type="email" id="searchReservation" placeholder="customer@email.com">
+                    <button onclick="searchReservation()" class="btn btn-secondary">Search</button>
+                </div>
+                
+                <div id="reservationDetails" style="display: none;">
+                    <h3>Reservation Details</h3>
+                    <div id="reservationInfo"></div>
+                    <button onclick="processPickup()" class="btn btn-primary">Complete Pickup</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Employee Portal Section -->
+    <section id="employee" class="employee-section">
+        <div class="container">
+            <h2>Employee Portal</h2>
+            
+            <!-- Login -->
+            <div id="employeeLogin" class="form-card">
+                <h3>Employee Login</h3>
+                <div class="form-group">
+                    <label for="employeeId">Employee ID</label>
+                    <input type="text" id="employeeId" placeholder="EMP001">
+                </div>
+                <div class="form-group">
+                    <label for="employeePassword">Password</label>
+                    <input type="password" id="employeePassword" placeholder="password">
+                </div>
+                <button onclick="employeeLogin()" class="btn btn-primary">Login</button>
+                <p class="hint">Demo: ID: EMP001, Password: admin123</p>
+            </div>
+            
+            <!-- Employee Dashboard -->
+            <div id="employeeDashboard" style="display: none;">
+                <div class="dashboard-tabs">
+                    <button class="tab-btn active" onclick="showTab('pickups')">Process Pickups</button>
+                    <button class="tab-btn" onclick="showTab('returns')">Process Returns</button>
+                    <button class="tab-btn" onclick="showTab('billing')">Final Billing</button>
+                </div>
+                
+                <!-- Pickups Tab -->
+                <div id="pickupsTab" class="tab-content active">
+                    <h3>Pending Reservations</h3>
+                    <div id="pendingReservations"></div>
+                </div>
+                
+                <!-- Returns Tab -->
+                <div id="returnsTab" class="tab-content">
+                    <h3>Active Rentals - Vehicle Returns</h3>
+                    <div id="activeRentals"></div>
+                </div>
+                
+                <!-- Billing Tab -->
+                <div id="billingTab" class="tab-content">
+                    <h3>Final Billing & Payment</h3>
+                    <div id="pendingBills"></div>
+                </div>
+                
+                <button onclick="employeeLogout()" class="btn btn-secondary" style="margin-top: 20px;">Logout</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Portal Section -->
+    <section id="customer-portal" class="customer-portal-section">
+        <div class="container">
+            <h2>Check Your Rental Status</h2>
+            <div class="form-card">
+                <div class="form-group">
+                    <label for="customerEmailCheck">Enter Your Email</label>
+                    <input type="email" id="customerEmailCheck" placeholder="your@email.com">
+                    <button onclick="checkRentalStatus()" class="btn btn-primary">Check Status</button>
+                </div>
+                <div id="customerStatusDisplay"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 AZoom Car Rental. All rights reserved.</p>
+            <p>Contact: info@azoomrental.com | Phone: 1-800-AZOOM-GO</p>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>✓ Success!</h2>
+            <p id="successMessage"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
