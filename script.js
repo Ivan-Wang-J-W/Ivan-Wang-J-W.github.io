@@ -1,4 +1,4 @@
-// Data Storage (In production, this would be a database)
+// Data Storage
 let carsData = [
     {
         id: 1,
@@ -7,7 +7,7 @@ let carsData = [
         pricePerDay: 45,
         features: ['5 Seats', 'Automatic', 'Air Conditioning', 'Bluetooth'],
         status: 'available',
-        icon: '🚗'
+        image: 'images/toyota-camry.jpg'
     },
     {
         id: 2,
@@ -16,7 +16,7 @@ let carsData = [
         pricePerDay: 65,
         features: ['7 Seats', 'Automatic', 'AWD', 'Navigation'],
         status: 'available',
-        icon: '🚙'
+        image: 'images/honda-crv.jpg'
     },
     {
         id: 3,
@@ -25,7 +25,7 @@ let carsData = [
         pricePerDay: 85,
         features: ['5 Seats', 'Autopilot', 'Electric', 'Premium Sound'],
         status: 'available',
-        icon: '⚡'
+        image: 'images/tesla-model3.jpg'
     },
     {
         id: 4,
@@ -34,7 +34,7 @@ let carsData = [
         pricePerDay: 70,
         features: ['7 Seats', 'Automatic', '4WD', 'Leather Seats'],
         status: 'available',
-        icon: '🚐'
+        image: 'images/ford-explorer.jpg'
     },
     {
         id: 5,
@@ -43,7 +43,7 @@ let carsData = [
         pricePerDay: 95,
         features: ['5 Seats', 'Automatic', 'Sport Mode', 'Premium Interior'],
         status: 'available',
-        icon: '🏎️'
+        image: 'images/bmw-3series.jpg'
     },
     {
         id: 6,
@@ -52,7 +52,7 @@ let carsData = [
         pricePerDay: 80,
         features: ['8 Seats', 'Automatic', '4WD', 'Towing Capacity'],
         status: 'available',
-        icon: '🚚'
+        image: 'images/chevrolet-tahoe.jpg'
     }
 ];
 
@@ -72,6 +72,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Load stored data
 function loadStoredData() {
+    // FORCE CLEAR old localStorage data to use new image paths
+    localStorage.removeItem('carsData');
+    
     const storedCars = localStorage.getItem('carsData');
     if (storedCars) {
         carsData = JSON.parse(storedCars);
@@ -117,7 +120,7 @@ function displayCars() {
         const carCard = document.createElement('div');
         carCard.className = 'car-card';
         carCard.innerHTML = `
-            <div class="car-image">${car.icon}</div>
+            <img src="${car.image}" alt="${car.name}" class="car-image">
             <div class="car-info">
                 <h3>${car.name}</h3>
                 <div class="car-type">${car.type}</div>
